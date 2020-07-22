@@ -1,4 +1,4 @@
-import { deepMix, each, get, isFunction } from '@antv/util';
+import { deepMix, each, filter, get, isFunction, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme } from '../../common/adaptor';
 import { flow } from '../../utils';
@@ -14,7 +14,14 @@ function field(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { data, angleField, colorField, color } = options;
 
-  chart.data(data);
+  // 处理不合法的数据
+  const progressData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
+  if (progressData.length !== data.length) {
+    // 先打印出来，后面统一界面提示
+    console.error('数据源存在不合适的数据，请检查');
+  }
+
+  chart.data(progressData);
   const geometry = chart.interval().position(`1*${angleField}`).adjust({ type: 'stack' });
 
   if (colorField) {
