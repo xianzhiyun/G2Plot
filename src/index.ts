@@ -18,6 +18,9 @@ export { Pie, PieOptions } from './plots/pie';
 // 散点图及类型定义
 export { Scatter, ScatterOptions } from './plots/scatter';
 
+// 雷达图及类型定义
+export { Radar, RadarOptions } from './plots/radar';
+
 // 迷你折线图及类型定义
 export { TinyLine, TinyLineOptions } from './plots/tiny-line';
 
